@@ -11,6 +11,9 @@ itself is excellent. But for badly damaged media, recovery can take a
 significant amount of time and may spend a significant amount of time on unused
 or unimportant data.
 
+_This is not an officially supported Google product_. It was simply developed by
+a Google engineer to scratch an itch.
+
 I had a crashed 80 GB hard disk from 2006 that I wanted recover more data from
 before wiping for recycling. In 2006 I had recovered some data from it by
 manually skipping over bad areas with `dd`, but I was time-pressed. Trying
