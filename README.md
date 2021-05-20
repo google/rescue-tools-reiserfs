@@ -127,7 +127,7 @@ ddrescuelog_processor.py
 ------------------------
 
 This tool assumes that bad blocks near good blocks are more likely to be read
-on retry. Given the current mapfile as progress, it "entends" the successful
+on retry. Given the current mapfile as progress, it "extends" the successful
 areas. This generates a mapfile for use with `--domain-mapfile` (`-m`) that
 will target bad blocks near existing good blocks. This is mainly helpful when
 performing extended retries with `--retry-passes` (`-r`).
