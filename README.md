@@ -35,8 +35,8 @@ The output is a PNM, so is nice to convert directly to a png when being
 generated.
 
 ```sh
-$ ./parse_ddrescue.py rescue.map | convert - rescue.png # ImageMagick
-$ ./parse_ddrescue.py rescue.map | pnm2png > rescue.png # libpng
+./parse_ddrescue.py rescue.map | convert - rescue.png # ImageMagick
+./parse_ddrescue.py rescue.map | pnm2png > rescue.png # libpng
 ```
 
 reiserfs_blocks.py
@@ -47,15 +47,15 @@ ddrescue maps are intended to be passed to ddrescue via `--domain-mapfile`
 (`-m`).
 
 ```sh
-# ./reiserfs_blocks.py rescue.bin rescue.map bitmap > used.map
-# ddrescue /dev/disk/by-id/some-disk-part1 rescue.bin rescue.map -m used.map
-# # At times need to re-run reiserfs_blocks so it can read additional info.
-# ./reiserfs_blocks.py rescue.bin rescue.map bitmap > used2.map
-# # If using --retry-passes (-r), may want to only retry the new data.
-# # ddrescuelog can subtract the previous log from the new log.
-# ddrescuelog used2.map -y <(ddrescuelog -n used.map) > used2.new.map
-# ddrescue /dev/disk/by-id/some-disk-part1 rescue.bin rescue.map \
-    -r 30 -m used2.new.map
+./reiserfs_blocks.py rescue.bin rescue.map bitmap > used.map
+ddrescue /dev/disk/by-id/some-disk-part1 rescue.bin rescue.map -m used.map
+# At times need to re-run reiserfs_blocks so it can read additional info.
+./reiserfs_blocks.py rescue.bin rescue.map bitmap > used2.map
+# If using --retry-passes (-r), may want to only retry the new data.
+# ddrescuelog can subtract the previous log from the new log.
+ddrescuelog used2.map -y <(ddrescuelog -n used.map) > used2.new.map
+ddrescue /dev/disk/by-id/some-disk-part1 rescue.bin rescue.map \
+  -r 30 -m used2.new.map
 ```
 
 ```
@@ -133,12 +133,12 @@ will target bad blocks near existing good blocks. This is mainly helpful when
 performing extended retries with `--retry-passes` (`-r`).
 
 ```sh
-# ddrescue /dev/disk/by-id/some-disk-part1 rescue.bin rescue.map \
-    -r 30 -m <(./ddrescuelog_processor.py rescue.map)
-# # ddrescuelog be used to filter the results of reiserfs_blocks.py
-# ddrescuelog used.map -y <(./ddrescuelog_processor.py rescue.map) > used.near-good.map
-# ddrescue /dev/disk/by-id/some-disk-part1 rescue.bin rescue.map \
-    -r 30 -m used.near-good.map
+ddrescue /dev/disk/by-id/some-disk-part1 rescue.bin rescue.map \
+  -r 30 -m <(./ddrescuelog_processor.py rescue.map)
+# ddrescuelog be used to filter the results of reiserfs_blocks.py
+ddrescuelog used.map -y <(./ddrescuelog_processor.py rescue.map) > used.near-good.map
+ddrescue /dev/disk/by-id/some-disk-part1 rescue.bin rescue.map \
+  -r 30 -m used.near-good.map
 ```
 
 Reiserfs Documentation
